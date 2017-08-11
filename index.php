@@ -12,22 +12,48 @@
 <div class="container">
     <form action="calculos.php" method="POST" class="form">
         <label class="col-sm-12">Número separados por "-": </label>
-        <div class="input-group col-sm-12">
-            <input type="text" class="form-control" style="100%" name="numeros" id="numeros">
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="numeros" id="numeros">
         </div>
-        <br/>
-        <button type="button" class="btn btn-block btn-primary">Enviar</button>
+        <div class="col-sm-2">
+            <input type="text" class="form-control col-sm-2" name="repetir" id="repetir" value="1">
+        </div>
+
+        <div class="col-sm-12">
+            <br/>
+        </div>
+
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-block btn-primary">Enviar</button>
+        </div>
     </form>
-    <div id="results">
+    <br/>
+    <div id="results" class="col-sm-12">
 
     </div>
     <script>
         $(document).ready(function(){
             $("button").on("click", function(e){
+                var numeros = $("#numeros").val();
+                var repetir = $("#repetir").val();
+
+                var i = 0;
+                var numerosRepetidos = "";
+                while(i < repetir){
+                    if(numerosRepetidos) {
+                        numerosRepetidos = numerosRepetidos + '-' + numeros;
+                    }else{
+                        numerosRepetidos = numeros;
+                    }
+                    console.log(numerosRepetidos);
+                    i++;
+                }
+
                 //e.preventDefault();
                 $.ajax({
                     url: "calculos.php",
-                    data: {'numeros': $("#numeros").val()},
+                    data: {'numeros': numerosRepetidos},
                     method: "POST"
                 }).done(function(json) {
                     var table = $("<table>", {class:"table table-striped"});
