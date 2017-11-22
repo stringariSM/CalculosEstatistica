@@ -13,11 +13,15 @@
     <form action="calculos.php" method="POST" class="form">
         <label class="col-sm-12">Número separados por "-": </label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-8">
             <input type="text" class="form-control" name="numeros" id="numeros">
         </div>
         <div class="col-sm-2">
             <input type="text" class="form-control col-sm-2" name="repetir" id="repetir" value="1">
+        </div>
+
+        <div class="col-sm-2">
+            <input type="text" class="form-control col-sm-2" name="ic" id="ic" value="95">
         </div>
 
         <div class="col-sm-12">
@@ -53,7 +57,7 @@
                 //e.preventDefault();
                 $.ajax({
                     url: "calculos.php",
-                    data: {'numeros': numerosRepetidos},
+                    data: {'numeros': numerosRepetidos, 'ic': $('#ic').val()},
                     method: "POST"
                 }).done(function(json) {
                     var table = $("<table>", {class:"table table-striped"});

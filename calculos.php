@@ -87,6 +87,26 @@ if($_POST != NULL){
     array_push($lArrayResult, array('title' => "Coeficiênte de Variação", 'value' => $lCoeficienteVariacao));
     array_push($lArrayResult, array('title' => "Coeficiênte de Variação em Porcentagem", 'value' => $lCoeficienteVariacao*100 . '%'));
 
+    $ic = $_POST['ic'];
+    $indice = array(
+        '90' => '1.65',
+        '95' => '1.96',
+        '99' => '2.58',
+        '10' => '1.65',
+        '5' => '1.96',
+        '1' => '2.58',
+    );
+    $indice = (float) $indice[$ic];
+    $ltotal = count($lArrayNumeros);
+
+    $calc = (float)($indice*($lDesvioPadrao/(sqrt($ltotal))));
+    $margem = round($calc, 4);
+
+    array_push($lArrayResult, array('title' => "Margem", 'value' => '+- '.$margem));
+    array_push($lArrayResult, array('title' => "Resultado em Texto", 'value' => 'Entre '.($lMedia-$margem).' e '.($lMedia+$margem)));
+
+    //echo '<pre>';die(var_dump($result));;
+
     echo html_entity_decode(json_encode($lArrayResult));
     exit;
 }
